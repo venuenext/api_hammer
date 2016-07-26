@@ -44,7 +44,13 @@ module ApiHammer
     #
     def find_or_halt(model, find_attrs, options={})
       options = {:status => 404}.merge(options)
-      record = model.where(find_attrs).first
+
+      model = model.where(find_attrs)
+      model = model.eager_load(options.delete(:eager_load)) if options[:eager_load]
+      model = model.includes(options.delete(:includes)) if options[:includes]
+      model = model.preload(options.delete(:preload)) if options[:preload]
+      record = model.first
+
       unless record
         attributes = find_attrs.map { |attr, val| "#{attr}: #{val}" }.join(", ")
         model_name = model.table_name

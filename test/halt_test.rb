@@ -33,15 +33,33 @@ describe 'ApiHammer::Rails#halt' do
   end
 
   describe 'find_or_halt' do
-    it 'returns a record if it exists' do
-      record = Object.new
-      model = Class.new do
-        define_singleton_method(:where) { |attrs| [record] }
-        define_singleton_method(:table_name) { 'records' }
+    context 'a record exist' do
+      before do
+        record = Object.new
+        model = Class.new do
+          define_singleton_method(:where) { |attrs| [record] }
+          define_singleton_method(:table_name) { 'records' }
+        end
       end
-      assert_equal record, FakeController.new.find_or_halt(model, {:id => 'anid'})
+
+      it 'returns a record if it exists' do
+        assert_equal record, FakeController.new.find_or_halt(model, {:id => 'anid'})
+      end
+
+      it 'supports eager loading associations' do
+        assert_equal record, FakeController.new.find_or_halt(model, {:id => 'anid'}, eager_load: :foo)
+      end
+
+      it 'supports pre loading associations' do
+        assert_equal record, FakeController.new.find_or_halt(model, {:id => 'anid'}, preload: :foo)
+      end
+
+      it 'supports including associations' do
+        assert_equal record, FakeController.new.find_or_halt(model, {:id => 'anid'}, includes: :foo)
+      end
     end
-    it 'it halts with 404 if not' do
+
+    it 'halts with 404 if not' do
       model = Class.new do
         (class << self; self; end).class_eval do
           define_method(:where) { |attrs| [] }
