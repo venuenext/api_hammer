@@ -1,6 +1,7 @@
 # ApiHammer
 
 [![Build Status](https://travis-ci.org/notEthan/api_hammer.svg?branch=master)](https://travis-ci.org/notEthan/api_hammer)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fvenuenext%2Fapi_hammer.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fvenuenext%2Fapi_hammer?ref=badge_shield)
 
 a collection of little tools I have used when creating APIs. these are generally too small to have their own 
 library, so have been collected here. 
@@ -30,3 +31,7 @@ Pass it an parameters which are required, and if they are missing or incorrect i
 ## Other
 
 Various other things. This readme is incomplete and will be updated soon. 
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fvenuenext%2Fapi_hammer.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fvenuenext%2Fapi_hammer?ref=badge_large)
